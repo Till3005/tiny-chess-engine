@@ -11,18 +11,6 @@ under 1 s/move locally. Incremental-eval fixes: material, king squares,
 fifty/repetition counts and the Zobrist key are all updated in make/unmake,
 so no position is rescanned during search.
 
-v0.2.3: node budget cut to 60,000 (env `ENG_NODES`), tuned for the grader's
-slow 1-CPU sandbox where 355k nodes/move timed out the 10-second move limit.
-
-v0.2.2: live-play fix — the packed payload's `urllib.request` import is now
-aliased as `UR` (module) so `RP`'s `UR.Request`/`UR.urlopen` calls resolve;
-the old `q` alias was shadowed by the `q(m)` make-move function and crashed
-on the first env call.
-
-v0.2.1: repetition detection is O(1) (a per-position hash-count dict checked
-in constant time instead of rescanning move history), and the search's default
-node budget is 355,000 (env `ENG_NODES`).
-
 ## The size rule
 
 - `main.py` is the whole engine: at most 4,096 bytes as committed,
