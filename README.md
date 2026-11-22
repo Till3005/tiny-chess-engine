@@ -7,7 +7,9 @@ not a contender. Replace its one-line choice with a real search.
 v0.3.0: budget back up to 70,000 nodes with exact Zobrist keys (castling +
 en-passant mixed into the hash), transposition-table best-move ordering,
 PVS at the root and quiescence delta pruning — 3/6 on practice trial-0 at
-under 1 s/move locally.
+under 1 s/move locally. Incremental-eval fixes: material, king squares,
+fifty/repetition counts and the Zobrist key are all updated in make/unmake,
+so no position is rescanned during search.
 
 v0.2.3: node budget cut to 60,000 (env `ENG_NODES`), tuned for the grader's
 slow 1-CPU sandbox where 355k nodes/move timed out the 10-second move limit.
