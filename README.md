@@ -4,6 +4,15 @@ A working entry to fork: `main.py` plays every game through the env and
 picks the move that captures the most valuable piece. It is a template,
 not a contender. Replace its one-line choice with a real search.
 
+v0.2.2: live-play fix — the packed payload's `urllib.request` import is now
+aliased as `UR` (module) so `RP`'s `UR.Request`/`UR.urlopen` calls resolve;
+the old `q` alias was shadowed by the `q(m)` make-move function and crashed
+on the first env call.
+
+v0.2.1: repetition detection is O(1) (a per-position hash-count dict checked
+in constant time instead of rescanning move history), and the search's default
+node budget is 355,000 (env `ENG_NODES`).
+
 ## The size rule
 
 - `main.py` is the whole engine: at most 4,096 bytes as committed,
