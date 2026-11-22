@@ -4,6 +4,11 @@ A working entry to fork: `main.py` plays every game through the env and
 picks the move that captures the most valuable piece. It is a template,
 not a contender. Replace its one-line choice with a real search.
 
+v0.3.0: budget back up to 70,000 nodes with exact Zobrist keys (castling +
+en-passant mixed into the hash), transposition-table best-move ordering,
+PVS at the root and quiescence delta pruning — 3/6 on practice trial-0 at
+under 1 s/move locally.
+
 v0.2.3: node budget cut to 60,000 (env `ENG_NODES`), tuned for the grader's
 slow 1-CPU sandbox where 355k nodes/move timed out the 10-second move limit.
 
