@@ -1,17 +1,24 @@
 # NOTES
 
-Search: iterative-deepening alpha-beta, TT, null-move,
-LMR, quiescence; qsearch expands evasions in check and
-delta-prunes hopeless captures (stand-pat + gain + DELTA < a).
+A self-contained Python chess engine in one file (engine_src.py);
+the committed main.py is its lzma-packed image, rebuilt with
+`makefun compress engine_src.py --out main.py`.
 
-Repetition: O(1) path-hash dict, bumped on make, restored on
-unmake; count 2+ scores a draw.
+Board: 128-square 0x88 mailbox; pieces are type 1..6 (P N B R Q K)
+with bit 3 set for black; a move is a (from, to, flag, promo) tuple.
 
-Nodes: fixed 200k budget with a 4.0s backstop; trials pick
-identical moves; budget fits the server's per-move clock.
+Search: iterative-deepening alpha-beta with a Zobrist-keyed
+transposition table, null-move pruning, PVS with late-move
+reductions, killer moves and history heuristic ordering.
 
-Layout: main.py = `#coding:l1` marker + one exec of an
-lzma payload, within 4,096 bytes.
+Quiescence: captures/promotions with stand-pat and delta pruning
+(DELTA = 200); when in check it expands full evasions instead.
 
-History: v0.2.0 packed; v0.2.1 O(1) repetition;
-v0.3.0 delta pruning at r15 budget; 8-0 self-play vs v0.2.x.
+Repetition: O(1) detection via a Zobrist-key counter dict, bumped
+on make and restored on unmake; fifty-move clock tracked as well.
+
+Budget: hard 200k-node cap with a 4.0 s wall-clock backstop, so
+trials replay identical moves within the server's per-move clock.
+
+Layout: main.py = `#coding:l1` marker + one exec of an lzma
+payload, always under 4096 bytes as committed.
